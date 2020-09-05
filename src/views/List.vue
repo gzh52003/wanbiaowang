@@ -47,6 +47,9 @@ import {
   Search,
   Col,
   Row,
+  Image,
+  Grid,
+  GridItem 
 } from "vant";
 
 Vue.use(Sidebar);
@@ -56,6 +59,9 @@ Vue.use(DropdownItem);
 Vue.use(Search);
 Vue.use(Col);
 Vue.use(Row);
+Vue.use(Image);
+Vue.use(Grid);
+Vue.use(GridItem);
 export default {
   name: "List",
   data() {
@@ -81,7 +87,7 @@ export default {
 
       // this.$router.push(`/goods/${id}`)
       this.$router.push({
-        name:'Detail',
+        name:'Goods',
         params:{
           id
         }
