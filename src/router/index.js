@@ -17,28 +17,43 @@ const routes = [
     {
         path:'/list',
         name:'List',
-        components:()=>import('../views/List.vue')
+        component:()=>import('../views/List.vue')
     },
     {
         path:'/goods',
         name:'Goods',
-        components:()=>import('../views/Goods.vue')
+        component:()=>import('../views/Goods.vue')
     },
     {
         path:'/cart',
         name:'Cart',
-        components:()=>import('../views/Cart.vue')
+        component:()=>import('../views/Cart.vue')
     },
     {
         path:'/login',
         name:'Login',
-        components:()=>import('../views/Login.vue')
+        component:()=>import('../views/Login.vue')
     },
     {
         path:'/reg',
         name:'Reg',
-        components:()=>import('../views/Reg.vue')
+        component:()=>import('../views/Reg.vue')
     },
+    {
+        path:'/mine',
+        name:'Mine',
+        component:()=>import('../views/Mine.vue')
+    },
+    {
+        path:'/order',
+        name:'Order',
+        component:()=>import('../views/Order.vue')
+    },
+    {
+        path:'/consult',
+        name:'Consult',
+        component:()=>import('../views/Consult.vue')
+    }
 ]
 
 const router = new VueRouter({

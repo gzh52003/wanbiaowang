@@ -1,6 +1,6 @@
 <template>
 <div>
-    Goods
+    Consult
 </div>
 </template>
 <script>
