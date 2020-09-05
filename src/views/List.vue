@@ -1,38 +1,20 @@
 <template>
   <!-- 商品搜索 -->
   <div class="goods">
-    <van-search
-      class="search"
-    
-      shape="round"
-      background="#ccc"
-      placeholder="请输入搜索关键词"
-    />
+    <van-search shape="round" background="#ccc" placeholder="请输入搜索关键词" />
 
     <van-row>
-      <van-col class="nav_bar" span="6">
-        <van-sidebar v-model="activeKey">
-          <van-sidebar-item title="男士表" />
-          <van-sidebar-item title="女士表" />
-        </van-sidebar>
-      </van-col>
-      <van-col span="6">
-        <!-- <van-sidebar v-model="activeKey">
-          <van-sidebar-item title="男士表" />
-          <van-sidebar-item title="女士表" />
-        </van-sidebar> -->
-      </van-col>
-      <van-col class="content_list" span="18">
+      <van-col class="content_list" span="24" type="flex" justify="space-around">
         <van-grid direction="vertical" :column-num="3" class="man_list">
-          <van-grid-item v-for="item in menWatch" :key="item._id" >
-        <van-image :src="item.img_url"  @click="gotoDetail(item._id)" />
-        <h4>{{item.goods_name}}</h4>
-        <p class="price">
-          <del>{{item.price}}</del>
-          <span>{{item.sales_price}}</span>
-        </p>
-      </van-grid-item>
-      </van-grid>
+          <van-grid-item v-for="item in menWatch" :key="item._id">
+            <van-image :src="item.img_url" @click="gotoDetail(item._id)" />
+            <h4>{{item.goods_name}}</h4>
+            <p class="price">
+              <del>{{item.price}}</del>
+              <span>{{item.sales_price}}</span>
+            </p>
+          </van-grid-item>
+        </van-grid>
       </van-col>
     </van-row>
   </div>
@@ -49,7 +31,7 @@ import {
   Row,
   Image,
   Grid,
-  GridItem 
+  GridItem,
 } from "vant";
 
 Vue.use(Sidebar);
@@ -82,17 +64,16 @@ export default {
       ],
     };
   },
-  methods:{
-        gotoDetail(id){
-
+  methods: {
+    gotoDetail(id) {
       // this.$router.push(`/goods/${id}`)
       this.$router.push({
-        name:'Goods',
-        params:{
-          id
-        }
-      })
-    }
+        name: "Goods",
+        params: {
+          id,
+        },
+      });
+    },
   },
   async created() {
     const { data: menWatch } = await this.$request.get("/goods");
@@ -104,14 +85,26 @@ export default {
 
 <style lang="scss" scope>
 // .van-sidebar-item{
+.van-search{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color:#FFFFFF !important;
+  width: 100%;
+  z-index: 999;
+
+  .van-field__control{
+    width: 100%;
+  }
+}
 .nav_bar {
   position: fixed;
-  top:54px;
+  top: 54px;
   left: 0px;
   border-right: 2px solid #ccc;
-    background-color: #FFFFFF;
-    bottom: 50px;
-    z-index: 999;
+  background-color: #ffffff;
+  bottom: 50px;
+  z-index: 999;
 }
 .van-row {
   margin-top: 54px;
@@ -119,12 +112,14 @@ export default {
 // .content_list{
 //   margin-left: ;
 // }
-.man_list .van-grid-item{
+.man_list {
+  display: flex;
+  justify-content: space-around;
+}
+.man_list .van-grid-item {
   float: left;
   width: 50%;
-
   margin-bottom: 10px;
-
 }
 // }
 .van-sidebar-item--select {
