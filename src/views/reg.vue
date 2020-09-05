@@ -5,7 +5,7 @@ reg
 </template>
 <script>
 export default {
-    name:"Reg",
+    name:"reg",
 }
 </script>
 <style lang='scss'>
