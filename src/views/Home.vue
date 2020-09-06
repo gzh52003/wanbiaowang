@@ -43,6 +43,7 @@
         :key="item.text"
         :icon="item.src"
         :text="item.text"
+        @click="gotoList()"
       />
     </van-grid>
     <!-- 推荐商品 -->
@@ -51,17 +52,16 @@
     </van-tabs>
     <!-- 商品列表 -->
     <van-grid :column-num="2" :border="false" class="grid-goodslist">
-      <van-grid-item v-for="item in recommend" :key="item._id" @click="gotoDetail(item._id)"> 
-          <van-image :src="item.img_url" />
-          <p class="price">
-            <del>{{item.price}}</del>
-            <span>{{item.sales_price}}</span>
-          </p>
-          <h4>{{item.goods_name}}</h4>
-          <div class="fq-tag">
+      <van-grid-item v-for="item in recommend" :key="item._id" @click="gotoDetail(item._id)">
+        <van-image :src="item.img_url" />
+        <p class="price">
+          <del>{{item.price}}</del>
+          <span>{{item.sales_price}}</span>
+        </p>
+        <h4>{{item.goods_name}}</h4>
+        <div class="fq-tag">
           <van-tag plain type="primary" size="small" color="#c6a461">免息分期</van-tag>
-
-          </div>
+        </div>
       </van-grid-item>
     </van-grid>
   </div>
@@ -206,28 +206,34 @@ export default {
           text: "维修保养",
         },
       ],
-      recommend:[],
+      recommend: [],
     };
   },
   methods: {
-    async getRecommend(){
-      const {data} = await this.$request.get('/goods/')
-      console.log(data)
-      this.recommend = data.data
-
+    async getRecommend() {
+      const { data } = await this.$request.get("/goods/", {
+        params: {
+          size: 0,
+        },
+      });
+      console.log(data);
+      this.recommend = data.data;
     },
-    gotoDetail(_id){
+    gotoDetail(_id) {
       this.$router.push({
-        name:'Goods',
-        params:{
+        name: "Goods",
+        params: {
           _id,
-        }
-      })
-    }
+        },
+      });
+    },
+    gotoList() {
+      this.$router.push({ name: "List" });
+    },
   },
-  created(){
-    this.getRecommend()
-  }
+  created() {
+    this.getRecommend();
+  },
 };
 </script>
 <style lang='scss'>
@@ -304,25 +310,24 @@ export default {
   background-color: #ccaa7a;
 }
 
-.grid-goodslist{
-
-  .price{
-    margin:4px 0;
-    padding:8px 8px 4px;
-    font-size:14px;
+.grid-goodslist {
+  .price {
+    margin: 4px 0;
+    padding: 8px 8px 4px;
+    font-size: 14px;
     font-weight: 700;
   }
-  h4{
-    margin:0;
+  h4 {
+    margin: 0;
     font-size: 12px;
     color: #666;
     line-height: 18px;
-    margin-bottom:5px;
+    margin-bottom: 5px;
   }
 }
 
-.fq-tag{
-  width:100%;
-  display:flex;
+.fq-tag {
+  width: 100%;
+  display: flex;
 }
 </style>
