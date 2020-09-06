@@ -5,14 +5,16 @@
 
     <van-row>
       <van-col class="content_list" span="24" type="flex" justify="space-around">
-        <van-grid direction="vertical" :column-num="3" class="man_list">
+        <van-grid direction="vertical" :column-num="2" class="man_list">
           <van-grid-item v-for="item in menWatch" :key="item._id">
             <van-image :src="item.img_url" @click="gotoDetail(item._id)" />
-            <h4>{{item.goods_name}}</h4>
-            <p class="price">
+
+              <p class="price">
               <del>{{item.price}}</del>
               <span>{{item.sales_price}}</span>
             </p>
+            <h4 class="good_symble">{{item.goods_name}}</h4>
+          
           </van-grid-item>
         </van-grid>
       </van-col>
@@ -32,6 +34,7 @@ import {
   Image,
   Grid,
   GridItem,
+  Lazyload
 } from "vant";
 
 Vue.use(Sidebar);
@@ -44,6 +47,7 @@ Vue.use(Row);
 Vue.use(Image);
 Vue.use(Grid);
 Vue.use(GridItem);
+Vue.use(Lazyload);
 export default {
   name: "List",
   data() {
@@ -51,17 +55,7 @@ export default {
       menWatch: [],
       activeKey: 0,
       value1: 0,
-      value2: "a",
-      option1: [
-        { text: "全部商品", value: 0 },
-        { text: "新款商品", value: 1 },
-        { text: "活动商品", value: 2 },
-      ],
-      option2: [
-        { text: "默认排序", value: "a" },
-        { text: "好评排序", value: "b" },
-        { text: "销量排序", value: "c" },
-      ],
+      value2: "a"
     };
   },
   methods: {
@@ -76,14 +70,18 @@ export default {
     },
   },
   async created() {
-    const { data: menWatch } = await this.$request.get("/goods");
+    const { data: menWatch } = await this.$request.get("/goods",{
+      params:{
+        size:80
+      }
+    });
     this.menWatch = menWatch;
     console.log(this.menWatch);
   },
 };
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 // .van-sidebar-item{
 .van-search{
   position: fixed;
@@ -114,14 +112,53 @@ export default {
 // }
 .man_list {
   display: flex;
+    background-color: #F1F1F1;
   justify-content: space-around;
 }
-.man_list .van-grid-item {
-  float: left;
-  width: 50%;
-  margin-bottom: 10px;
+.good_symble{
+  white-space:nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  width: 100%;
+  height: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 0;
 }
-// }
+.man_list .van-grid-item {
+
+  float: left;
+  width:50%;
+  margin-bottom: 10px;
+
+  .van-grid-item__content{
+    width: 100%;
+    border: 10px solid #F1F1F1;
+    margin-right: 10px;
+  }
+}
+.price{
+  margin-bottom: 8px;
+  font-weight: 700;
+  align-self: start;
+  del{
+    color: gray;
+    margin-right: 10px;
+
+    &::before{
+      content: '￥';
+    }
+  }
+
+  span{
+    color: red;
+    font-weight: 800px;
+
+    &::before{
+      content:'￥'
+    }
+  }
+}
 .van-sidebar-item--select {
   background-color: #515151;
   color: white;

@@ -16,9 +16,11 @@
 <script>
 import Vue from "vue";
 import { Tabbar, TabbarItem } from "vant";
+import { Image } from 'vant';
 
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
+Vue.use(Image)
 
 export default {
   data() {
@@ -39,7 +41,7 @@ export default {
           icon: "wap-home-o",
           text: "选表",
         },
-        { name: "order", path: "/order", icon: "orders-o", text: "订单" },
+        { name: "cart", path: "/cart", icon: "shopping-cart-o", text: "购物车" },
         { name: "mine", path: "/mine", icon: "user-o", text: "我的" },
       ],
     };
@@ -50,5 +52,20 @@ export default {
 <style lang="scss">
 .iconsize .van-icon {
   font-size: 30px;
+}
+.price {
+  del {
+    color: #999;
+    margin-right: 5px;
+    &::before {
+      content: "￥";
+    }
+  }
+  span {
+    color: #f00;
+    &::before {
+      content: "￥";
+    }
+  }
 }
 </style>
