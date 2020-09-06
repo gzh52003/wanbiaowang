@@ -40,7 +40,7 @@ export default {
           icon: "wap-home-o",
           text: "选表",
         },
-        { name: "order", path: "/order", icon: "orders-o", text: "订单" },
+        { name: "cart", path: "/cart", icon: "shopping-cart-o", text: "购物车" },
         { name: "mine", path: "/mine", icon: "user-o", text: "我的" },
       ],
     };
