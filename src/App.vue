@@ -16,9 +16,11 @@
 <script>
 import Vue from "vue";
 import { Tabbar, TabbarItem } from "vant";
+import { Image } from 'vant';
 
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
+Vue.use(Image)
 
 export default {
   data() {
@@ -49,5 +51,20 @@ export default {
 <style lang="scss">
 .iconsize .van-icon {
   font-size: 30px;
+}
+.price {
+  del {
+    color: #999;
+    margin-right: 5px;
+    &::before {
+      content: "￥";
+    }
+  }
+  span {
+    color: #f00;
+    &::before {
+      content: "￥";
+    }
+  }
 }
 </style>
