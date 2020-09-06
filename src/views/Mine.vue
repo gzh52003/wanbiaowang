@@ -5,8 +5,10 @@
             <p id="st" class="setting"><van-icon name="setting-o" id="st-o" class="st-o"/></p>
             <van-image round width="64" height="64" style="float:left" src="/img/touxiang.jpg" />
             <div style="float:left;margin-top:13px">
-                <p style="margin:0 0 2px 0;font-size:16px">登录/注册</p>
-                <p>登录享优惠</p>
+                <div @click="gologin">
+                    <p style="margin:0 0 2px 0;font-size:16px">登录/注册</p>
+                    <p>登录享优惠</p>
+                </div>
             </div>
         </div>
         <van-row>
@@ -20,7 +22,7 @@
             <p>我的服务<span><van-icon name="service-o"/>联系万表</span></p>
             <van-row>
                 <van-col span="6" v-for="item in mineser" :key="item.name" :id="item.name">
-                    <div :style="{background:'url(/img/minejlt.png)no-repeat '+item.url}" style="width:60px;height:60px;margin:0 auto;backgroundSize:255px"  ></div>
+                    <div class="navicon" :style="{background:'url(/img/minejlt.png)no-repeat '+item.url}" style="width:60px;height:60px;margin:0 auto;"  ></div>
                     {{item.text}}
                 </van-col>
             </van-row>
@@ -119,6 +121,16 @@ export default {
                 },
             ]
         }
+    },
+    created() {
+        this.$parent.showMenu = true;
+    },
+    methods:{
+        gologin(){
+            this.$router.push({
+                path:'/login'
+            })
+        }
     }
 }
 </script>
@@ -149,6 +161,9 @@ p{
         text-align: center;
         .van-col{
             height: 80px;
+            .navicon{
+                background-size:255px !important;
+            }
         }
         .van-col::before{
             width: 0;

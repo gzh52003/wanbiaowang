@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <van-tabbar v-model="active" route>
+    <van-tabbar v-model="active" route v-show="showMenu">
       <van-tabbar-item
         :icon="item.icon"
         v-for="item in menu"
@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       active: "",
+      showMenu:true,
       menu: [
         { name: "home", path: "/home", icon: "home-o", text: "首页" },
         {
