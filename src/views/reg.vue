@@ -7,47 +7,53 @@
         />
         <h2>注册万表会员</h2>
         <p>有账号？<span @click="gologin">去登录</span></p>
-        <van-form style="padding:0 7.5%">
+        <van-form style="padding:0 7.5%" 
+            :model="ruleForm"
+            ref="ruleForm"
+            v-model="ruleForm"
+            :rules="rules"
+        >
             <van-field
-                v-model="username"
-                name="pattern"
+                v-model="ruleForm.username"
+                name="username"
                 placeholder="手机号"
-                :rules="[{pattern}]"
             />
             <van-row>
                 <van-col span="16">
                     <van-field
-                        v-model="captcha"
-                        name="图形验证码"
+                        v-model="ruleForm.captcha"
+                        name="captcha"
                         placeholder="图形验证码"
                     />
                 </van-col>
                 <van-col span="8">
-                    <span id="svgVcode" @click="addVcode()"></span>
+                    <span id="svgVcode" @click="addVcode()">
+                        <div v-html="svgVcode"></div>
+                    </span>
                 </van-col>
             </van-row>
             <van-row>
                 <van-col span="16">
                     <van-field
-                        v-model="smscode"
-                        name="短信验证码"
+                        v-model="ruleForm.smscode"
+                        name="smscode"
                         placeholder="短信验证码"
                     />
                 </van-col>
                 <van-col span="8">
-                    <van-button @click="yzm(captcha)">
+                    <van-button @click="yzm">
                         发送验证码
                     </van-button>
                 </van-col>
             </van-row>
             <van-field
-                v-model="password"
+                v-model="ruleForm.password"
                 type="password"
-                name="设置密码"
+                name="password"
                 placeholder="设置密码"
             />
             <div style="margin:40px 0 0 0;font-size:16px">
-                <van-button round block type="info" native-type="submit" @click="zc">注 册</van-button>
+                <van-button round block type="info" native-type="submit" @click="zc()">注 册</van-button>
             </div>
             <p>点击注册意味着阁下同意<span>《万表用户协议》</span></p>
         </van-form>
@@ -66,11 +72,17 @@ Vue.use(Toast);
 export default {
     data () {
         return {
-            username:'',
-            password:'',
-            captcha:'',
-            smscode:'',
-            pattern:/\d{11}/
+            ruleForm:{
+                username:'',
+                captcha:'',
+                password:'',
+                smscode:'',
+                telyzm:''
+            },
+            rules:{
+                username:[{type:"number",min:11,max:11,trigger:"blur"}]
+            },
+            svgVcode:''
         }
     },
     mounted: function () {
@@ -85,22 +97,50 @@ export default {
                 path: "/login"
             });
         },
-        yzm(vercode){
-            if(!this.username){
+        async yzm(){
+            // console.log(formName);
+            if(!this.ruleForm.username){
                 Toast('请输入手机号')
-            }else if(!this.captcha){
+            }else if(!this.ruleForm.captcha){
                 Toast('请输入验证码')
             }else{
-                console.log('vercode=',vercode);
+                const {ruleForm}=this;
+                const {username,captcha} = ruleForm;
+                const {data} = await this.$request.get("/reg",{
+                    params:{username,captcha}
+                })
+                console.log(data);
+                if(data.code === 20){
+                    return Toast('验证码不正确')
+                }else if(data.code === 9){
+                    return Toast("此号码已注册")
+                }else{
+                    this.telyzm = Math.round(Math.random()*9999).toString().padStart( 4 , "0")
+                    console.log('本次注册验证码为：',this.telyzm);
+                }
             }
         },
-        zc(){},
+        async zc(){
+            // this.$refs[formName].validate((valid)=>{
+            //     if(valid){
+            if(this.ruleForm.smscode == this.telyzm){
+                const {ruleForm}=this;
+                const {username,password} = ruleForm;
+                const {data} = await this.$request.post("/reg",{
+                    username,password
+                })
+                if(data.code === 1){
+                    await Toast('注册成功')
+                    this.$router.push("./login")
+                }
+
+            }
+            //     }
+            // })
+        },
         async addVcode() {
             const { data } = await this.$request.get(`/vcode`);
-            const svgVcode = document.querySelector("#svgVcode");
-            if (data.code === 1) {
-                svgVcode.innerHTML = data.data;
-            }
+            this.svgVcode = data.data
         },
     },
     created() {
@@ -108,7 +148,7 @@ export default {
     }
 }
 </script>
-<style lang='scss' scope>
+<style lang='scss' scoped>
 h2,p,span{
     text-align: center;
     margin: 0;
@@ -138,6 +178,10 @@ p{
         font-size: 30px;
     }
 }
+/deep/ .van-nav-bar__arrow{
+    color: #666;
+    font-size: 22px;
+}
 .van-form{
     .van-field{
         margin: 22px 0 20px;
@@ -148,7 +192,7 @@ p{
     .van-row{
         margin-top: 22px;
     }
-    .van-col::after{
+    .van-cell::after{
         width: 100%;
         left: 0;
         right: 0;
@@ -159,10 +203,10 @@ p{
             margin: 0;
         }
         .van-button{
+            width: 100%;
             background: none;
             border:none;
             border-bottom: 1px solid #ebedf0;
-            // margin-top: 22px;
             span{
                 margin: 0;
                 color: #999;
@@ -172,15 +216,18 @@ p{
             display: block;
             line-height: 44px;
             height: 44px;
-            // margin-top: 22px;
             position: relative;
-            svg{
+            div{
                 display: block;
-                width: 106px;
-                margin-top: -2px;
+                height: 44px;
+                border-bottom: 1px solid #ebedf0;
+                // width: 106px !important;
+                // border: 1px solid #000;
+                margin-top: -1px;
                 position: absolute;
-                rect{
-                    padding: 0;
+                svg{
+                    // padding: 0;
+                    height: 40px !important;
                 }
             }
         }

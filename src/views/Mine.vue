@@ -5,8 +5,8 @@
             <p id="st" class="setting"><van-icon name="setting-o" id="st-o" class="st-o"/></p>
             <van-image round width="64" height="64" style="float:left" src="/img/touxiang.jpg" />
             <div style="float:left;margin-top:13px">
-                <div @click="gologin">
-                    <p style="margin:0 0 2px 0;font-size:16px">登录/注册</p>
+                <div @click="gologin" :v-if="showgolog">
+                    <p style="margin:0 0 2px 0;font-size:16px" >登录/注册</p>
                     <p>登录享优惠</p>
                 </div>
             </div>
@@ -41,6 +41,7 @@ export default {
     data(){
         return {
             showMenu:true,
+            showgolog:true,
             nav:[
                 {
                     name:'perdata',
@@ -124,6 +125,11 @@ export default {
     },
     created() {
         this.$parent.showMenu = true;
+        if ( typeof(localStorage.userInfo) == "undefined" ){
+            this.showgolog=true
+        } else {
+            this.showgolog=false
+        }
     },
     methods:{
         gologin(){
@@ -134,7 +140,7 @@ export default {
     }
 }
 </script>
-<style lang='scss' scope>
+<style lang='scss' scoped>
 p{
     margin: 0;
     padding: 0;
