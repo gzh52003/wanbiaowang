@@ -260,7 +260,7 @@ export default {
     }
   }
 }
-.my-swipe {
+/deep/.my-swipe {
   margin-left: 11px;
   padding: 10px 0;
   .van-swipe__indicators {
