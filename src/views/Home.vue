@@ -236,7 +236,7 @@ export default {
   },
 };
 </script>
-<style lang='scss'>
+<style lang='scss' scoped>
 .headers {
   height: 50px;
   .van-search {

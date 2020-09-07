@@ -4,13 +4,13 @@
     <van-nav-bar title="购物车" left-text="返回" left-arrow @click-left="onClickLeft" />
     <!-- 商品栏 -->
     <van-card
-      num="2"
-      tag="标签"
-      price="2.00"
-      desc="描述信息"
-      title="商品标题"
-      thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
+      :price="item.sales_price"
+      :desc="item.category"
+      :title="item.goods_name"
+      :thumb="item.big_img_url"
       origin-price="10.00"
+      v-for="item in goodslist"
+      :key="item._id"
     />
     <!-- 提交订单栏 -->
     <van-submit-bar :price="0" button-text="结算" @submit="onSubmit">
@@ -33,6 +33,9 @@ export default {
     return {};
   },
   computed: {
+    goodslist(){
+      return this.$store.state.goodslist;
+    },
     checkAll() {
       return true;
     },
