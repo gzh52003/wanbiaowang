@@ -8,7 +8,7 @@
       :price="item.sales_price"
       :desc="item.category"
       :title="item.goods_name"
-      :thumb="item.big_img_url"
+      :thumb="item.img_url"
       :origin-price="item.price"
       v-for="item in goodslist"
       :key="item._id"

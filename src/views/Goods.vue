@@ -11,23 +11,22 @@
       <van-col span="4">。。。</van-col>
     </van-row>
     <van-grid>
-      <van-grid-item class="item" v-for="item in Detailgoods" :key="item._id">
+      <van-grid-item class="item">
         <img src="/pic/regpic.jpeg" alt class="regpic" />
-        <van-image round width="50%" height="50%" :src="item.img_url" />
+        <van-image round width="50%" height="50%" :src="Detailgoods.img_url" />
         <img src="/pic/pic_FOUR.png" alt class="pic_FOUR" />
         <p class="price">
           原价：
-          <del>{{item.price}}</del>
-          <span>{{item.sales_price}}</span>
+          <del>{{Detailgoods.price}}</del>
+          <span>{{Detailgoods.sales_price}}</span>
         </p>
-        <h4>{{item.goods_name}}</h4>
+        <h4>{{Detailgoods.goods_name}}</h4>
       </van-grid-item>
-    </van-grid>
-
+       </van-grid>
     <!-- 加入购物车 -->
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" color="#07c160" />
-      <van-goods-action-icon icon="cart-o" text="购物车" />
+      <van-goods-action-icon icon="cart-o" text="购物车" :badge="cartlist.length" @click="goto('/cart')" />
       <van-goods-action-icon icon="star" text="已收藏" color="#ff5000" />
       <van-goods-action-button type="warning" text="加入购物车" />
       <van-goods-action-button type="danger" text="立即购买" />
@@ -57,32 +56,38 @@ Vue.use(GoodsActionButton);
 Vue.use(GoodsActionIcon);
 export default {
   name: "Goods",
+  
   data() {
     return {
       Detailgoods: [],
       checked: "",
     };
   },
+  computed:{
+    cartlist(){
+      return this.$store.state.cart.goodslist;
+    }
+  },
   methods: {
+    goto(path){
+      this.$router.push(path)
+    },
     onSubmit() {
-      this.$router.push("./home");
+      this.$router.push("/home");
     },
     gotoHome() {
-      this.$router.push("./home");
+      this.$router.push("/home");
+    },
+    async getDetailData(id){
+      const { data: Detailgoods } = await this.$request.get("/goods/"+id,{}
+    );
+
+     this.Detailgoods = Detailgoods.data
     },
   },
   async created() {
     const { id } = this.$route.params;
-    console.log(id);
-    const { data: Detailgoods } = await this.$request.get("/goods", {
-      params: {
-        size: 80,
-      },
-    });
-    console.log(Detailgoods);
-    this.Detailgoods = Detailgoods.filter((item) => item._id === id);
-
-    console.log(this.Detailgoods);
+    this.getDetailData(id)
   },
 };
 </script>

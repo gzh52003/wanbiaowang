@@ -62,9 +62,9 @@ export default {
     gotoDetail(id) {
       // this.$router.push(`/goods/${id}`)
       this.$router.push({
-        name: "Goods",
-        params: {
-          id,
+        name:'Goods',
+        params:{
+          id
         },
       });
     },
