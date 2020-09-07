@@ -55,7 +55,12 @@ const cart = {
       }
   },
     mutations:{
-
+      remove(state,_id){
+        state.goodslist = state.goodslist.filter(item=>item._id!==_id)
+      },
+      clear(state){
+        state.goodslist = [];
+      }
     },
     actions:{
 

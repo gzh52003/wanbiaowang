@@ -15,12 +15,13 @@
 
 <script>
 import Vue from "vue";
-import { Tabbar, TabbarItem } from "vant";
+import { Button, Tabbar, TabbarItem } from "vant";
 import { Image } from 'vant';
 
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 Vue.use(Image)
+Vue.use(Button)
 
 export default {
   data() {
