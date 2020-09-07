@@ -45,6 +45,15 @@ const cart = {
             checked:false,
           }]
     },
+    getters:{
+      totalPrice(state){
+          // console.log('getters=',state, getters, rootState, rootGetters)
+          return state.goodslist.reduce((pre,item)=>pre+item.sales_price*item.qty,0)*100;
+      },
+      test(){
+          return 'cart'
+      }
+  },
     mutations:{
 
     },

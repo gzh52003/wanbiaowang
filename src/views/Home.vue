@@ -51,7 +51,7 @@
       <van-tab title="为您推荐"></van-tab>
     </van-tabs>
     <!-- 商品列表 -->
-    <van-grid :column-num="2" :border="false" class="grid-goodslist">
+    <van-grid :column-num="2" :border="false">
       <van-grid-item v-for="item in recommend" :key="item._id" @click="gotoDetail(item._id)">
         <van-image :src="item.img_url" />
         <p class="price">
@@ -293,11 +293,11 @@ export default {
     }
   }
 }
-.grid-goodsClassify {
+/deep/.grid-goodsClassify {
   .van-grid-item__content {
-    padding: 9px 0 !important;
+    padding: 9px 0;
     span {
-      margin-top: -10px !important;
+      margin-top: -10px;
     }
   }
 }
@@ -306,7 +306,7 @@ export default {
   font-weight: 700;
   color: #000;
 }
-.van-tabs__line {
+/deep/.van-tabs__line {
   background-color: #ccaa7a;
 }
 
