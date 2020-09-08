@@ -8,12 +8,8 @@
       :price="item.sales_price"
       :desc="item.category"
       :title="item.goods_name"
-<<<<<<< HEAD
       :thumb="item.img_url"
       :origin-price="item.price"
-=======
-      :thumb="item.big_img_url"
->>>>>>> 313440819e7ef6d68178575a5ebd3bb2e45f234d
       v-for="item in goodslist"
       :key="item._id"
       @click-thumb="gotoDetail(item._id)"

@@ -6,7 +6,7 @@ const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:2003'
 
 const request = axios.create({
     baseURL:baseURL+'/api',
-    withCredentials:true,
+    withCredentials:true
 });
 
 request.source = source;

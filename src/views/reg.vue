@@ -107,10 +107,11 @@ export default {
                 const {ruleForm}=this;
                 const {username,captcha} = ruleForm;
                 const {data} = await this.$request.get("/reg",{
-                    params:{username,captcha}
+                    params:{username,captcha},
                 })
                 console.log(data);
-                if(data.code === 20){
+                if(data.code === 0){
+                    this.addVcode()
                     return Toast('验证码不正确')
                 }else if(data.code === 9){
                     return Toast("此号码已注册")
@@ -177,6 +178,9 @@ p{
         padding: 0 10px;
         font-size: 30px;
     }
+}
+/deep/ .van-nav-bar{
+    border: none;
 }
 /deep/ .van-nav-bar__arrow{
     color: #666;
