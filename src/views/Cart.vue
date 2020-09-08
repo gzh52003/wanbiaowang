@@ -8,32 +8,16 @@
       :price="item.sales_price"
       :desc="item.category"
       :title="item.goods_name"
-<<<<<<< HEAD
       :thumb="item.img_url"
       :origin-price="item.price"
-=======
-      :thumb="item.big_img_url"
->>>>>>> 313440819e7ef6d68178575a5ebd3bb2e45f234d
       v-for="item in goodslist"
       :key="item._id"
       @click-thumb="gotoDetail(item._id)"
     >
-      <template #tags class="tagsbutton van-checkbox">
-        <van-checkbox v-model="item.checked" class="tagsbutton van-checkbox"></van-checkbox>
-      </template>
-      <template #price>
-        <p class="price">
-          <del>{{item.price}}</del>
-          <span>{{item.sales_price}}</span>
-        </p>
-      </template>
       <template #footer>
-        <van-button size="small" color="#f00" icon="delete" @click="removeItem(item._id)"></van-button>
+        <van-checkbox v-model="item.checked"></van-checkbox>
       </template>
     </van-card>
-    <div style="padding:10px">
-      <van-button plain size="small" type="danger" @click="clearCart()">清空购物车</van-button>
-    </div>
     <!-- 提交订单栏 -->
     <van-submit-bar :price="totalPrice" button-text="结算" @submit="onSubmit">
       <van-checkbox v-model="checkAll">全选</van-checkbox>
@@ -78,12 +62,6 @@ export default {
     }
   },
   methods: {
-    removeItem(id){
-      this.$store.commit('remove',id)
-    },
-    clearCart(){
-      this.$store.commit('clear')
-    },
     gotoDetail(id) {
       this.$router.push({
         name: "Goods",
@@ -109,15 +87,9 @@ export default {
 .van-card__thumb {
   margin-left: 30px;
 }
-.tagsbutton{
+.van-card__footer{
   position:absolute;
-  top:35px;
-  left:-130px;
+  top:38px;
     
-}
-.van-card{
-  .price{
-    margin:0;
-  }
 }
 </style>

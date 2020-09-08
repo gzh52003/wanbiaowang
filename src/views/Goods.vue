@@ -22,14 +22,19 @@
         </p>
         <h4>{{Detailgoods.goods_name}}</h4>
       </van-grid-item>
-       </van-grid>
+    </van-grid>
     <!-- 加入购物车 -->
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" color="#07c160" />
-      <van-goods-action-icon icon="cart-o" text="购物车" :badge="cartlist.length" @click="goto('/cart')" />
+      <van-goods-action-icon
+        icon="cart-o"
+        text="购物车"
+        :badge="cartlist.length"
+        @click="goto('/cart')"
+      />
       <van-goods-action-icon icon="star" text="已收藏" color="#ff5000" />
-      <van-goods-action-button type="warning" text="加入购物车" />
-      <van-goods-action-button type="danger" text="立即购买" />
+      <van-goods-action-button type="warning" text="加入购物车" @click="add2cart" />
+      <van-goods-action-button type="danger" text="立即购买" @click="buyNow" />
     </van-goods-action>
   </div>
 </template>
@@ -56,21 +61,21 @@ Vue.use(GoodsActionButton);
 Vue.use(GoodsActionIcon);
 export default {
   name: "Goods",
-  
+
   data() {
     return {
       Detailgoods: [],
       checked: "",
     };
   },
-  computed:{
-    cartlist(){
+  computed: {
+    cartlist() {
       return this.$store.state.cart.goodslist;
-    }
+    },
   },
   methods: {
-    goto(path){
-      this.$router.push(path)
+    goto(path) {
+      this.$router.push(path);
     },
     onSubmit() {
       this.$router.push("/home");
@@ -78,63 +83,50 @@ export default {
     gotoHome() {
       this.$router.push("/home");
     },
-    async getDetailData(id){
-      const { data: Detailgoods } = await this.$request.get("/goods/"+id,{}
-    );
+    async getDetailData(id) {
+      const { data: Detailgoods } = await this.$request.get("/goods/" + id, {});
 
-     this.Detailgoods = Detailgoods.data
+      this.Detailgoods = Detailgoods.data;
     },
+
+
+    // 添加购物车
+     add2cart(){
+      // 添加当前商品到购物车;
+      // 判断当前商品是否已经存在购物车中
+      // 存在：数量+1
+      // 不存在：添加到购物车
+      const {_id} = this.Detailgoods;
+      const current = this.cartlist.filter(item=>item._id === _id)[0]
+      if(current){
+        this.$store.commit('changeQty',{_id,qty:current.qty+1})
+      }else{
+        const goods = {
+          ...this.data,
+          qty:1
+        }
+        // 调用mutation方法
+        this.$store.commit('add',goods);
+
+      }
+
+    },
+
+    // 立即购买
+    buyNow(){
+      // 添加当前商品到购物车，并跳转到购物车页面
+      this.add2cart();
+      this.$router.push('/cart')
+    }
   },
   async created() {
     const { id } = this.$route.params;
-    this.getDetailData(id)
+    this.getDetailData(id);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// .van-search{
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   background-color:#FFFFFF !important;
-//   width: 100%;
-//   z-index: 999;
-
-//   .van-field__control{
-//     width: 100%;
-//   }
-// }
-// .nav_bar {
-//   position: fixed;
-//   top: 54px;
-//   left: 0px;
-//   border-right: 2px solid #ccc;
-//   background-color: #ffffff;
-//   bottom: 50px;
-//   z-index: 999;
-// }
-// .van-row {
-//   margin-top: 54px;
-// }
-// // .content_list{
-// //   margin-left: ;
-// // }
-// .man_list {
-//   display: flex;
-//     background-color: #F1F1F1;
-//   justify-content: space-around;
-// }
-// .good_symble{
-//   white-space:nowrap;
-//   overflow: hidden;
-//   text-overflow:ellipsis;
-//   width: 100%;
-//   height: 20px;
-//   font-size: 14px;
-//   font-weight: 400;
-//   margin-top: 0;
-// }
 .van-row {
   position: fixed;
   top: 0;
@@ -221,14 +213,7 @@ h4 {
     }
   }
 }
-
-.van-goods-action{
-    z-index: 1001;
+.van-goods-action {
+  z-index: 1001;
 }
-
-// .van-sidebar-item--select {
-//   background-color: #515151;
-//   color: white;
-//   border-radius: 10px;
-// }
 </style>
