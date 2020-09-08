@@ -10,7 +10,9 @@ const cart = {
           "sales_price" : "580",
           "price" : "6960",
           "sales_qty" : "968",
-          "img_url" : "/img/80b6a4d2175c4028999e3e2eab242d3f.jpg"
+          "img_url" : "/img/80b6a4d2175c4028999e3e2eab242d3f.jpg",
+          qty: 5,
+            checked:false,
         },
         {
           _id : "5f51f52bd9b097882e73bf8e",
@@ -21,7 +23,9 @@ const cart = {
           "sales_price" : "613.3",
           "price" : "7360",
           "sales_qty" : "285",
-          "img_url" : "/img/9591bc752bdb4992bfa3c56bf56667ff.jpg"
+          "img_url" : "/img/9591bc752bdb4992bfa3c56bf56667ff.jpg",
+          qty: 5,
+          checked:false,
         },
         {
           _id : "5f51f52bd9b097882e73bf91",
@@ -32,7 +36,9 @@ const cart = {
           "sales_price" : "680",
           "price" : "8160",
           "sales_qty" : "179",
-          "img_url" : "/img/36c7dec6f3f44491a31ad99ad4338fea.jpg"
+          "img_url" : "/img/36c7dec6f3f44491a31ad99ad4338fea.jpg",
+          qty: 5,
+          checked:false,
         }]
     },
     getters:{
@@ -51,6 +57,9 @@ const cart = {
       clear(state){
         state.goodslist = [];
       },
+      // checkAll(state){
+
+      // },
       
       add(state,goods){
        state.goodslist.unshift(goods)
