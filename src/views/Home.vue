@@ -216,8 +216,8 @@ export default {
           size: 0,
         },
       });
-      console.log(data);
-      this.recommend = data.data;
+      // console.log(data);
+      this.recommend = data;
     },
     gotoDetail(id) {
       this.$router.push({
@@ -233,6 +233,8 @@ export default {
   },
   created() {
     this.getRecommend();
+    // console.log('re=',this.recommend);
+    
   },
 };
 </script>

@@ -107,10 +107,10 @@ export default {
                 const {ruleForm}=this;
                 const {username,captcha} = ruleForm;
                 const {data} = await this.$request.get("/reg",{
-                    params:{username,captcha},
+                    params:{username,captcha}
                 })
                 console.log(data);
-                if(data.code === 0){
+                if(data.code === 10){
                     this.addVcode()
                     return Toast('验证码不正确')
                 }else if(data.code === 9){
@@ -178,9 +178,6 @@ p{
         padding: 0 10px;
         font-size: 30px;
     }
-}
-/deep/ .van-nav-bar{
-    border: none;
 }
 /deep/ .van-nav-bar__arrow{
     color: #666;

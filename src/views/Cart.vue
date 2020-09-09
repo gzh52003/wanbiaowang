@@ -8,7 +8,7 @@
       :price="item.sales_price"
       :desc="item.category"
       :title="item.goods_name"
-      :thumb="item.big_img_url"
+      :thumb="item.img_url"
       v-for="item in goodslist"
       :key="item._id"
       @click-thumb="gotoDetail(item._id)"
