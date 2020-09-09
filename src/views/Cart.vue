@@ -14,7 +14,12 @@
       @click-thumb="gotoDetail(item._id)"
     >
       <template #tags class="tagsbutton van-checkbox">
-        <input type="checkbox" v-bind:checked="selecteds.includes(item._id)" class="tagsbutton van-checkbox" @click.stop="selecte(item._id)" />
+        <input
+          type="checkbox"
+          v-bind:checked="selecteds.includes(item._id)"
+          class="tagsbutton van-checkbox"
+          @click.stop="selecte(item._id)"
+        />
       </template>
       <template #price>
         <p class="price">
@@ -27,7 +32,17 @@
       </template>
     </van-card>
     <div style="padding:10px">
-      <van-button plain size="small" type="danger" @click="clearCart()">清空购物车</van-button>
+      <van-button
+        v-if="goodslist.length"
+        plain
+        size="small"
+        type="danger"
+        @click="clearCart()"
+      >清空购物车</van-button>
+      <div v-else class="gotoShop_btn" @click="gotoHome()">
+        <P>您的购物车没有商品！</P>
+        <van-button type="warning">去逛逛</van-button>
+      </div>
     </div>
     <!-- 提交订单栏 -->
     <van-submit-bar :price="totalPrice" button-text="结算" @submit="onSubmit">
@@ -37,20 +52,21 @@
 </template>
 <script>
 import Vue from "vue";
-import { Card, Checkbox, NavBar, SubmitBar} from "vant";
+import { Card, Checkbox, Dialog, NavBar, SubmitBar } from "vant";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 Vue.use(SubmitBar);
 Vue.use(Checkbox);
 Vue.use(NavBar);
 Vue.use(Card);
+Vue.use(Dialog);
 
 export default {
   name: "cart",
-  
+
   data() {
     return {
-      selecteds:[],
+      selecteds: [],
     };
   },
   computed: {
@@ -59,32 +75,47 @@ export default {
         return state.cart.goodslist;
       },
     }),
-    checkAll:{
-      get(){
-        return this.goodslist.every((item) => this.selecteds.includes(item._id));
+    checkAll: {
+      get() {
+        return this.goodslist.every((item) =>
+          this.selecteds.includes(item._id)
+        );
       },
-      set(val){
-        this.selecteds = val ? this.goodslist.map(item=>item._id): []
-      }
+      set(val) {
+        this.selecteds = val ? this.goodslist.map((item) => item._id) : [];
+      },
     },
-    totalPrice(){
-      return this.$store.getters.totalPrice
-    }
+    totalPrice() {
+      return this.$store.getters.totalPrice;
+    },
   },
   methods: {
-    selecte(id){
-      console.log(this.selecteds)
-      if(this.selecteds.includes(id)){
-        this.selecteds = this.selecteds.filter(item=>item!==id)
-      }else{
-        this.selecteds.push(id)
+    gotoHome() {
+      this.$router.push("/home");
+    },
+    selecte(id) {
+      console.log(this.selecteds);
+      if (this.selecteds.includes(id)) {
+        this.selecteds = this.selecteds.filter((item) => item !== id);
+      } else {
+        this.selecteds.push(id);
       }
     },
-    removeItem(id){
-      this.$store.commit('remove',id)
+    removeItem(id) {
+      Dialog.confirm({
+        message: "您确定要删除这件商品吗？",
+      })
+        .then(() => {
+          this.$store.commit("remove", id);
+        })
     },
-    clearCart(){
-      this.$store.commit('clear')
+    clearCart() {
+      Dialog.confirm({
+        message: "您确定要清空购物车吗？",
+      })
+        .then(() => {
+          this.$store.commit("clear");
+        })
     },
     gotoDetail(id) {
       this.$router.push({
@@ -101,8 +132,8 @@ export default {
     ...mapGetters({}),
     ...mapMutations({}),
     ...mapActions({}),
-    changeQty(_id,qty){
-      this.$store.dispatch('changeQtyAsync',{_id,qty})
+    changeQty(_id, qty) {
+      this.$store.dispatch("changeQtyAsync", { _id, qty });
     },
   },
   created() {
@@ -114,15 +145,19 @@ export default {
 .van-card__thumb {
   margin-left: 30px;
 }
-.tagsbutton{
-  position:absolute;
-  top:35px;
-  left:-130px;
-    
+.tagsbutton {
+  position: absolute;
+  top: 35px;
+  left: -130px;
 }
-.van-card{
-  .price{
-    margin:0;
+.van-card {
+  .price {
+    margin: 0;
   }
+}
+.gotoShop_btn {
+  padding-top: 200px;
+  display: flex;
+  justify-content: center;
 }
 </style>

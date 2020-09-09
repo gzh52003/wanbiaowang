@@ -16,8 +16,7 @@
 
 <script>
 import Vue from "vue";
-import { Button, Tabbar, TabbarItem } from "vant";
-import { Image } from 'vant';
+import { Button, Tabbar, TabbarItem, Image } from "vant";
 import { mapState } from 'vuex';
 
 Vue.use(Tabbar);
@@ -65,7 +64,7 @@ export default {
 .iconsize .van-icon {
   font-size: 30px;
 }
-.price {
+/deep/.price {
   del {
     color: #999;
     margin-right: 5px;
