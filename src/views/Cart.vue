@@ -12,6 +12,7 @@
       v-for="item in goodslist"
       :key="item._id"
       @click-thumb="gotoDetail(item._id)"
+      
     >
       <template #tags class="tagsbutton van-checkbox">
         <input
@@ -21,14 +22,14 @@
           @click.stop="selecte(item._id)"
         />
       </template>
-      <template #price>
+      <template #price >
         <p class="price">
           <del>{{item.price}}</del>
           <span>{{item.sales_price}}</span>
         </p>
       </template>
-      <template #footer>
-        <van-button size="small" color="#f00" icon="delete" @click="removeItem(item._id)"></van-button>
+      <template #footer >
+        <van-button  size="small" color="#f00" icon="delete" @click="removeItem(item._id)"></van-button>
       </template>
     </van-card>
     <div style="padding:10px">

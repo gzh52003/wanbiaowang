@@ -50,6 +50,7 @@ import {
   GoodsActionIcon,
   GoodsActionButton,
 } from "vant";
+import {mapState} from 'vuex';
 
 Vue.use(Grid);
 Vue.use(GridItem);
@@ -69,9 +70,12 @@ export default {
     };
   },
   computed: {
-    cartlist() {
-      return this.$store.state.cart.goodslist;
+    ...mapState({
+      cartlist(state) {
+        return state.cart.goodslist;
     },
+
+    })
   },
   methods: {
     goto(path) {
@@ -102,9 +106,10 @@ export default {
         this.$store.commit('changeQty',{_id,qty:current.qty+1})
       }else{
         const goods = {
-          ...this.data,
+          ...this.Detailgoods,
           qty:1
         }
+        
         // 调用mutation方法
         this.$store.commit('add',goods);
 

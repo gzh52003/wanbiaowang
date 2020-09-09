@@ -25,9 +25,6 @@
 
 
 ## 项目页面截图
-<<<<<<< HEAD
-![](./pic/logo.png)
-=======
 列表
 ![](./img/list.png)
 详情
@@ -45,7 +42,6 @@
 
 
 
->>>>>>> 6cf961633410ed4c4b3f9cfbb70bba2af86823ad
 
 ## 项目目录说明
 ├─public
@@ -55,4 +51,3 @@
     ├─router    路由配置
     ├─utils     工具包
     └─views     页面
-	

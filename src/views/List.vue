@@ -7,7 +7,9 @@
       <van-col class="content_list" span="24" type="flex" justify="space-around">
         <van-grid direction="vertical" :column-num="2" class="man_list">
           <van-grid-item v-for="item in menWatch" :key="item._id">
+             <img src="/pic/regpic.jpeg" alt class="regpic" />
             <van-image :src="item.img_url" @click="gotoDetail(item._id)" />
+            <img src="/pic/pic_FOUR.png" alt class="pic_FOUR" />
 
               <p class="price">
               <del>{{item.price}}</del>
@@ -130,6 +132,10 @@ export default {
   float: left;
   width:50%;
   margin-bottom: 10px;
+
+  img{
+    width: 100%;
+  }
 
   .van-grid-item__content{
     width: 100%;
