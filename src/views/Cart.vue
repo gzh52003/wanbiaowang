@@ -56,7 +56,6 @@ export default {
   computed: {
     ...mapState({
       goodslist(state) {
-        console.log(state.cart.goodslist);
         return state.cart.goodslist;
       },
     }),
@@ -102,6 +101,9 @@ export default {
     ...mapGetters({}),
     ...mapMutations({}),
     ...mapActions({}),
+    changeQty(_id,qty){
+      this.$store.dispatch('changeQtyAsync',{_id,qty})
+    },
   },
   created() {
     this.goodslist;
