@@ -21,8 +21,27 @@
         +   “商品列表”编写
         +   “商品详情页”编写
         +   初始化环境搭建
+
+
+
 ## 项目页面截图
-![](./pic/logo.png)
+列表
+![](./img/list.png)
+详情
+![](./img/goods.png)
+购物车
+![](./img/cart.png)
+首页
+![](./img/home.png)
+注册
+![](./img/reg.png)
+登录成功
+![](./img/login_success.png)
+
+
+
+
+
 
 ## 项目目录说明
 ├─public
@@ -32,4 +51,3 @@
     ├─router    路由配置
     ├─utils     工具包
     └─views     页面
-	
