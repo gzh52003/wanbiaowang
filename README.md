@@ -1,9 +1,10 @@
 # 项目名称：万表网
 ## 演示
 +   官网:   https://m.wbiao.cn/
++   演示视频：https://pan.baidu.com/s/1l3psBysRjVKWHZq6pyfBDw 提取码：57pi
 +   上线地址
     +   后台管理系统:
-    +   webapp:
+    +   webapp: http://47.115.124.217:8080/
 ## github仓库地址:  https://github.com/gzh52003/wanbiaowang
 ## 团队与分工
 +   组长: 何宏杰
@@ -25,9 +26,6 @@
 
 
 ## 项目页面截图
-<<<<<<< HEAD
-![](./pic/logo.png)
-=======
 列表
 ![](./img/list.png)
 详情
@@ -45,7 +43,6 @@
 
 
 
->>>>>>> 6cf961633410ed4c4b3f9cfbb70bba2af86823ad
 
 ## 项目目录说明
 ├─public
