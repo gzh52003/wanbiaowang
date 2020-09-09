@@ -4,7 +4,7 @@
     <div class="headers">
       <van-search shape="round" background="#fff" show-action placeholder="买表、修表、二手表交易">
         <template #left>
-          <!-- <img src="../../public/img/header-logo.png" alt /> -->
+          <img src="../../public/img/logo.png" alt />
         </template>
         <template #action>
           <van-icon name="service-o" />
