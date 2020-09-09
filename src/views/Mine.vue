@@ -2,12 +2,16 @@
 <div id="mine" class="mine">
     <div id="member-top" class="member-top">
         <div style="overflow:hidden;height:154px">
-            <p id="st" class="setting"><van-icon name="setting-o" id="st-o" class="st-o"/></p>
+            <p id="st" class="setting"><van-icon name="setting-o" id="st-o" class="st-o" @click="signOut"/></p>
             <van-image round width="64" height="64" style="float:left" src="/img/touxiang.jpg" />
-            <div style="float:left;margin-top:13px">
-                <div @click="gologin" :v-if="showgolog">
+            <div style="float:left;margin-top:15px">
+                <div @click="gologin" v-if="showgolog">
                     <p style="margin:0 0 2px 0;font-size:16px" >登录/注册</p>
                     <p>登录享优惠</p>
+                </div>
+                <div v-if="!showgolog">
+                    <p style="font-size:16px">{{user}}</p>
+                    <p style="color:#9e9685">银卡会员</p>
                 </div>
             </div>
         </div>
@@ -42,6 +46,7 @@ export default {
         return {
             showMenu:true,
             showgolog:true,
+            user:'',
             nav:[
                 {
                     name:'perdata',
@@ -129,6 +134,7 @@ export default {
             this.showgolog=true
         } else {
             this.showgolog=false
+            this.user=JSON.parse(localStorage.userInfo).username
         }
     },
     methods:{
@@ -136,6 +142,10 @@ export default {
             this.$router.push({
                 path:'/login'
             })
+        },
+        signOut(){
+            window.localStorage.removeItem('userInfo')
+            this.showgolog=true
         }
     }
 }
@@ -184,7 +194,7 @@ p{
     .setting{
         text-align: right;
         padding: 0;
-        margin: 0;
+        margin: 0 0 5px 0;
         .st-o{
             font-size: 20px;
             line-height: 44px;

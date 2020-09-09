@@ -9,15 +9,27 @@
       :desc="item.category"
       :title="item.goods_name"
       :thumb="item.img_url"
-      :origin-price="item.price"
       v-for="item in goodslist"
       :key="item._id"
       @click-thumb="gotoDetail(item._id)"
+      
     >
-      <template #footer>
-        <van-checkbox v-model="item.checked"></van-checkbox>
+      <template #tags class="tagsbutton van-checkbox">
+        <input type="checkbox" v-bind:checked="selecteds.includes(item._id)" class="tagsbutton van-checkbox" @click.stop="selecte(item._id)" />
+      </template>
+      <template #price >
+        <p class="price">
+          <del>{{item.price}}</del>
+          <span>{{item.sales_price}}</span>
+        </p>
+      </template>
+      <template #footer >
+        <van-button  size="small" color="#f00" icon="delete" @click="removeItem(item._id)"></van-button>
       </template>
     </van-card>
+    <div style="padding:10px">
+      <van-button v-if="goodslist.length" plain size="small" type="danger" @click="clearCart()">清空购物车</van-button>
+    </div>
     <!-- 提交订单栏 -->
     <van-submit-bar :price="totalPrice" button-text="结算" @submit="onSubmit">
       <van-checkbox v-model="checkAll">全选</van-checkbox>
@@ -36,25 +48,24 @@ Vue.use(Card);
 
 export default {
   name: "cart",
+  
   data() {
-    return {};
+    return {
+      selecteds:[],
+    };
   },
   computed: {
     ...mapState({
       goodslist(state) {
-        console.log(state.cart.goodslist);
         return state.cart.goodslist;
       },
     }),
     checkAll:{
       get(){
-        return this.goodslist.every(item=>item.checked)
+        return this.goodslist.every((item) => this.selecteds.includes(item._id));
       },
       set(val){
-        this.goodslist = this.goodslist.map(item=>{
-          item.checked = val
-          return item
-        })
+        this.selecteds = val ? this.goodslist.map(item=>item._id): []
       }
     },
     totalPrice(){
@@ -62,6 +73,20 @@ export default {
     }
   },
   methods: {
+    selecte(id){
+      console.log(this.selecteds)
+      if(this.selecteds.includes(id)){
+        this.selecteds = this.selecteds.filter(item=>item!==id)
+      }else{
+        this.selecteds.push(id)
+      }
+    },
+    removeItem(id){
+      this.$store.commit('remove',id)
+    },
+    clearCart(){
+      this.$store.commit('clear')
+    },
     gotoDetail(id) {
       this.$router.push({
         name: "Goods",
@@ -77,6 +102,9 @@ export default {
     ...mapGetters({}),
     ...mapMutations({}),
     ...mapActions({}),
+    changeQty(_id,qty){
+      this.$store.dispatch('changeQtyAsync',{_id,qty})
+    },
   },
   created() {
     this.goodslist;
@@ -87,9 +115,15 @@ export default {
 .van-card__thumb {
   margin-left: 30px;
 }
-.van-card__footer{
+.tagsbutton{
   position:absolute;
-  top:38px;
+  top:35px;
+  left:-130px;
     
+}
+.van-card{
+  .price{
+    margin:0;
+  }
 }
 </style>

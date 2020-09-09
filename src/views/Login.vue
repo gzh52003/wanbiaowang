@@ -94,6 +94,9 @@ p{
     margin: 22px 0 20px;
     color: #ccc;
 }
+/deep/ .van-nav-bar{
+    border: none;
+}
 /deep/ .van-nav-bar__text{
     color: #999;
 }

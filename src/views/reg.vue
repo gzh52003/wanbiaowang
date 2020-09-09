@@ -110,7 +110,8 @@ export default {
                     params:{username,captcha}
                 })
                 console.log(data);
-                if(data.code === 20){
+                if(data.code === 10){
+                    this.addVcode()
                     return Toast('验证码不正确')
                 }else if(data.code === 9){
                     return Toast("此号码已注册")

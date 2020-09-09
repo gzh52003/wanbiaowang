@@ -8,6 +8,7 @@
         :key="item.text"
         :to="item.path"
         class="iconsize"
+        :badge="item.name==='cart'?cartLength:''"
       >{{item.text}}</van-tabbar-item>
     </van-tabbar>
   </div>
@@ -17,11 +18,13 @@
 import Vue from "vue";
 import { Button, Tabbar, TabbarItem } from "vant";
 import { Image } from 'vant';
+import { mapState } from 'vuex';
 
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 Vue.use(Image)
 Vue.use(Button)
+Vue.use(mapState)
 
 export default {
   data() {
@@ -47,6 +50,14 @@ export default {
       ],
     };
   },
+  computed:{
+    ...mapState({
+      cartLength(state){
+        return state.cart.goodslist.length
+      }
+
+    })
+  }
 };
 </script>
 

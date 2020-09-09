@@ -109,6 +109,7 @@ export default {
           ...this.Detailgoods,
           qty:1
         }
+        
         // 调用mutation方法
         this.$store.commit('add',goods);
 

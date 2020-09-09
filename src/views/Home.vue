@@ -4,7 +4,7 @@
     <div class="headers">
       <van-search shape="round" background="#fff" show-action placeholder="买表、修表、二手表交易">
         <template #left>
-          <!-- <img src="../../public/img/head-logo.png" alt /> -->
+          <img src="../../public/img/header-logo.png" alt />
         </template>
         <template #action>
           <van-icon name="service-o" />
@@ -216,14 +216,14 @@ export default {
           size: 0,
         },
       });
-      console.log(data);
-      this.recommend = data.data;
+      // console.log(data);
+      this.recommend = data;
     },
-    gotoDetail(_id) {
+    gotoDetail(id) {
       this.$router.push({
         name: "Goods",
         params: {
-          _id,
+          id,
         },
       });
     },
@@ -233,6 +233,8 @@ export default {
   },
   created() {
     this.getRecommend();
+    // console.log('re=',this.recommend);
+    
   },
 };
 </script>
