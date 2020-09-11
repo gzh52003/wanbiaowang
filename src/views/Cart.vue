@@ -64,7 +64,7 @@ Vue.use(Dialog);
 
 export default {
   name: "cart",
-
+  cart:'',
   data() {
     return {
       selecteds: [],
@@ -87,6 +87,7 @@ export default {
       },
     },
     totalPrice() {
+      
       return this.$store.getters.totalPrice;
     },
   },
@@ -140,7 +141,10 @@ export default {
   created() {
     this.goodslist;
   },
-};
+  mounted() {
+
+},
+  };
 </script>
 <style lang='scss'>
 .van-card__thumb {

@@ -4,7 +4,7 @@
     <div class="headers">
       <van-search shape="round" background="#fff" show-action placeholder="买表、修表、二手表交易">
         <template #left>
-          <!-- <img src="../../public/img/header-logo.png" alt /> -->
+          <img src="../../public/img/logo.png" alt />
         </template>
         <template #action>
           <van-icon name="service-o" />
@@ -217,7 +217,7 @@ export default {
         },
       });
       // console.log(data);
-      this.recommend = data;
+      this.recommend = data.data;
     },
     gotoDetail(id) {
       this.$router.push({
@@ -312,7 +312,7 @@ export default {
   background-color: #ccaa7a;
 }
 
-.grid-goodslist {
+/deep/.grid-goodslist {
   .price {
     margin: 4px 0;
     padding: 8px 8px 4px;

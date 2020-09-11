@@ -60,19 +60,19 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .iconsize .van-icon {
   font-size: 30px;
 }
-/deep/.price {
-  del {
+.price {
+del {
     color: #999;
     margin-right: 5px;
     &::before {
       content: "￥";
     }
   }
-  span {
+span {
     color: #f00;
     &::before {
       content: "￥";
