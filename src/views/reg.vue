@@ -117,7 +117,8 @@ export default {
                     return Toast("此号码已注册")
                 }else{
                     this.telyzm = Math.round(Math.random()*9999).toString().padStart( 4 , "0")
-                    console.log('本次注册验证码为：',this.telyzm);
+                    alert('本次注册验证码为：'+this.telyzm)
+                    // console.log('本次注册验证码为：',this.telyzm);
                 }
             }
         },
