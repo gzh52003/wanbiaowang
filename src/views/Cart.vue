@@ -4,7 +4,6 @@
     <van-nav-bar title="购物车" left-text="返回" left-arrow @click-left="onClickLeft" />
     <!-- 商品栏 -->
     <van-card
-      :num="item.qty"
       :price="item.sales_price"
       :desc="item.category"
       :title="item.goods_name"
@@ -14,6 +13,9 @@
       @click-thumb="gotoDetail(item._id)"
       
     >
+      <template #num>
+        <van-stepper v-model="item.qty" theme="round" button-size="22" disable-input @change="changeQty(item._id,$event)"/>
+      </template>
       <template #tags class="tagsbutton van-checkbox">
         <input
           type="checkbox"
@@ -36,7 +38,7 @@
       <van-button
         v-if="goodslist.length"
         plain
-        size="small"
+        size="mini"
         type="danger"
         @click="clearCart()"
       >清空购物车</van-button>
@@ -53,7 +55,7 @@
 </template>
 <script>
 import Vue from "vue";
-import { Card, Checkbox, Dialog, NavBar, SubmitBar } from "vant";
+import { Card, Checkbox, Dialog, NavBar, Stepper, SubmitBar } from "vant";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 Vue.use(SubmitBar);
@@ -61,6 +63,7 @@ Vue.use(Checkbox);
 Vue.use(NavBar);
 Vue.use(Card);
 Vue.use(Dialog);
+Vue.use(Stepper);
 
 export default {
   name: "cart",
@@ -135,7 +138,8 @@ export default {
     ...mapMutations({}),
     ...mapActions({}),
     changeQty(_id, qty) {
-      this.$store.dispatch("changeQtyAsync", { _id, qty });
+      // this.$store.dispatch("changeQtyAsync", { _id, qty });
+      this.$store.commit('changeQty',{_id,qty})
     },
   },
   created() {
@@ -164,5 +168,8 @@ export default {
   padding-top: 200px;
   display: flex;
   justify-content: center;
+}
+.van-card__footer{
+  margin-top:10px;
 }
 </style>

@@ -71,20 +71,22 @@ const cart = {
        state.goodslist.unshift(goods)
        localStorage.setItem('cart',JSON.stringify(state.goodslist))
    },
-          //  修改数量
-           changeQty(state,{_id,qty}){
-            state.goodslist = state.goodslist.map(item=>{
-                if(item._id === _id){
-                    item.qty = qty;
-                }
-                return item;
-            });
-          }
+      //  修改数量
+        changeQty(state,{_id,qty}){
+        state.goodslist = state.goodslist.map(item=>{
+            if(item._id === _id){
+                item.qty = qty;
+            }
+            return item;
+        });
+        localStorage.setItem('cart',JSON.stringify(state.goodslist))
+      }
     },
          // 添加商品到购物车
 
 
-      actions:{
+    actions:{
+      
     }
 }
 

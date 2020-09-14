@@ -53,7 +53,7 @@
     <!-- 商品列表 -->
     <van-grid :column-num="2" :border="false">
       <van-grid-item v-for="item in recommend" :key="item._id" @click="gotoDetail(item._id)">
-        <van-image :src="item.img_url" />
+        <van-image lazy-load :src="item.img_url" />
         <p class="price">
           <del>{{item.price}}</del>
           <span>{{item.sales_price}}</span>
@@ -73,6 +73,7 @@ import {
   Grid,
   GridItem,
   Icon,
+  Lazyload,
   Row,
   Search,
   Swipe,
@@ -92,6 +93,7 @@ Vue.use(GridItem);
 Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Tag);
+Vue.use(Lazyload);
 
 export default {
   name: "Home",
