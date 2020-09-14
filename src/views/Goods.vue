@@ -107,7 +107,8 @@ export default {
       }else{
         const goods = {
           ...this.Detailgoods,
-          qty:1
+          qty:1,
+          checked:false
         }
         
         // 调用mutation方法

@@ -87,24 +87,27 @@ export default {
       },
       set(val) {
         this.selecteds = val ? this.goodslist.map((item) => item._id) : [];
+        this.$store.commit('cheAll',val)
       },
     },
     totalPrice() {
-      
-      return this.$store.getters.totalPrice;
+      return this.goodslist.filter(item=>item.checked===true).reduce((pre,item)=>pre+item.sales_price*item.qty,0)*100;
     },
   },
   methods: {
+    
     gotoHome() {
       this.$router.push("/home");
     },
     selecte(id) {
-      console.log(this.selecteds);
       if (this.selecteds.includes(id)) {
         this.selecteds = this.selecteds.filter((item) => item !== id);
+        this.$store.commit('falseche',id)
       } else {
         this.selecteds.push(id);
+        this.$store.commit('tureche',id)
       }
+
     },
     removeItem(id) {
       Dialog.confirm({

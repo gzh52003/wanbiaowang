@@ -64,6 +64,9 @@ export default {
 </script>
 
 <style lang="scss" >
+.cart{
+  padding-bottom:50px;
+}
 .iconsize .van-icon {
   font-size: 30px;
 }
