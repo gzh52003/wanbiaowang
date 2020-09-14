@@ -219,7 +219,7 @@ export default {
         },
       });
       // console.log(data);
-      this.recommend = data.data;
+      this.recommend = data;
     },
     gotoDetail(id) {
       this.$router.push({
