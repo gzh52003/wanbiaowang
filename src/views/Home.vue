@@ -11,59 +11,62 @@
         </template>
       </van-search>
     </div>
-    <!-- 轮播图 -->
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="item in swipeData" :key="item.id">
-        <img :src="item.src" alt />
-      </van-swipe-item>
-    </van-swipe>
-    <!--  -->
-    <van-row type="flex" justify="center" gutter="10">
-      <van-col span="6">
-        <van-icon name="certificate" />
-        <span>正品直供</span>
-      </van-col>
-      <van-col span="6">
-        <van-icon name="certificate" />
-        <span>9年0假货</span>
-      </van-col>
-      <van-col span="6">
-        <van-icon name="certificate" />
-        <span>12期免息</span>
-      </van-col>
-      <van-col span="6">
-        <van-icon name="certificate" />
-        <span>终身售后</span>
-      </van-col>
-    </van-row>
-    <!-- 商品分类 -->
-    <van-grid :border="false" :column-num="5" icon-size="70" class="grid-goodsClassify">
-      <van-grid-item
-        v-for="item in goodsClassify"
-        :key="item.text"
-        :icon="item.src"
-        :text="item.text"
-        @click="gotoList()"
-      />
-    </van-grid>
-    <!-- 推荐商品 -->
-    <van-tabs line-width="24">
-      <van-tab title="为您推荐"></van-tab>
-    </van-tabs>
-    <!-- 商品列表 -->
-    <van-grid :column-num="2" :border="false">
-      <van-grid-item v-for="item in recommend" :key="item._id" @click="gotoDetail(item._id)">
-        <van-image lazy-load :src="item.img_url" />
-        <p class="price">
-          <del>{{item.price}}</del>
-          <span>{{item.sales_price}}</span>
-        </p>
-        <h4>{{item.goods_name}}</h4>
-        <div class="fq-tag">
-          <van-tag plain type="primary" size="small" color="#c6a461">免息分期</van-tag>
-        </div>
-      </van-grid-item>
-    </van-grid>
+    <main class="mainBox">
+
+      <!-- 轮播图 -->
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="item in swipeData" :key="item.id">
+          <img :src="item.src" alt />
+        </van-swipe-item>
+      </van-swipe>
+      <!--  -->
+      <van-row type="flex" justify="center" gutter="10">
+        <van-col span="6">
+          <van-icon name="certificate" />
+          <span>正品直供</span>
+        </van-col>
+        <van-col span="6">
+          <van-icon name="certificate" />
+          <span>9年0假货</span>
+        </van-col>
+        <van-col span="6">
+          <van-icon name="certificate" />
+          <span>12期免息</span>
+        </van-col>
+        <van-col span="6">
+          <van-icon name="certificate" />
+          <span>终身售后</span>
+        </van-col>
+      </van-row>
+      <!-- 商品分类 -->
+      <van-grid :border="false" :column-num="5" icon-size="70" class="grid-goodsClassify">
+        <van-grid-item
+          v-for="item in goodsClassify"
+          :key="item.text"
+          :icon="item.src"
+          :text="item.text"
+          @click="gotoList()"
+        />
+      </van-grid>
+      <!-- 推荐商品 -->
+      <van-tabs line-width="24">
+        <van-tab title="为您推荐"></van-tab>
+      </van-tabs>
+      <!-- 商品列表 -->
+      <van-grid :column-num="2" :border="false">
+        <van-grid-item v-for="item in recommend" :key="item._id" @click="gotoDetail(item._id)">
+          <van-image lazy-load :src="item.img_url" />
+          <p class="price">
+            <del>{{item.price}}</del>
+            <span>{{item.sales_price}}</span>
+          </p>
+          <h4>{{item.goods_name}}</h4>
+          <div class="fq-tag">
+            <van-tag plain type="primary" size="small" color="#c6a461">免息分期</van-tag>
+          </div>
+        </van-grid-item>
+      </van-grid>
+    </main>
   </div>
 </template>
 <script>
@@ -242,7 +245,11 @@ export default {
 </script>
 <style lang='scss' scoped>
 .headers {
+  width:100%;
   height: 50px;
+  position:fixed;
+  top:0;
+  z-index: 2;
   .van-search {
     padding: 3px 0 3px 12px;
     .van-cell {
@@ -263,6 +270,9 @@ export default {
       }
     }
   }
+}
+.mainBox{
+  padding:50px 0;
 }
 /deep/.my-swipe {
   margin-left: 11px;

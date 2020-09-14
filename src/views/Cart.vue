@@ -132,10 +132,16 @@ export default {
           id,
         },
       });
+      
+      this.falsecheAll()
+    },
+    falsecheAll(){
+      this.goodslist.map(item=>{item.checked=false})
     },
     onSubmit() {},
     onClickLeft() {
       history.go(-1);
+      this.falsecheAll()
     },
     ...mapGetters({}),
     ...mapMutations({}),
