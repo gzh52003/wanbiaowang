@@ -48,7 +48,7 @@ const cart = {
 
       totalPrice(state){
         
-          return state.goodslist.reduce((pre,item)=>pre+item.sales_price*item.qty,0)*100;
+          return state.goodslist.reduce((pre,item)=>(item.checked?pre+item.sales_price*item.qty:pre),0)*100;
       },
       test(){
           return 'cart'
@@ -72,10 +72,19 @@ const cart = {
        localStorage.setItem('cart',JSON.stringify(state.goodslist))
    },
       //  修改数量
-        changeQty(state,{_id,qty}){
+      changeQty(state,{_id,qty}){
         state.goodslist = state.goodslist.map(item=>{
             if(item._id === _id){
                 item.qty = qty;
+            }
+            return item;
+        });
+        localStorage.setItem('cart',JSON.stringify(state.goodslist))
+      },
+      changeCh(state,{_id,checked}){
+        state.goodslist = state.goodslist.map(item=>{
+            if(item._id === _id){
+                item.checked = checked;
             }
             return item;
         });

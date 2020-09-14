@@ -101,9 +101,11 @@ export default {
     selecte(id) {
       console.log(this.selecteds);
       if (this.selecteds.includes(id)) {
-        this.selecteds = this.selecteds.filter((item) => item !== id);
+        // this.selecteds = this.selecteds.filter((item) => item !== id);
+        this.$store.commit('changeCh',{_id:id,checked:false})
       } else {
-        this.selecteds.push(id);
+        // this.selecteds.push(id);
+        this.$store.commit('changeCh',{_id:id,checked:true})
       }
     },
     removeItem(id) {
