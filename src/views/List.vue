@@ -14,7 +14,7 @@
             <template v-if="this.value2==='a'">
               <van-grid-item v-for="item in watch" :key="item._id">
                 <!-- <img src="/pic/regpic.jpeg" alt class="regpic" /> -->
-                <van-image :src="item.img_url" @click="gotoDetail(item._id)" />
+                <van-image lazy-load :src="item.img_url" @click="gotoDetail(item._id)" />
                 <img src="/pic/pic_FOUR.png" alt class="pic_FOUR" />
 
                 <p class="price">
@@ -27,7 +27,7 @@
             <template v-if="this.value2==='b'">
               <van-grid-item v-for="item in priceWatch" :key="item._id">
                 <!-- <img src="/pic/regpic.jpeg" alt class="regpic" /> -->
-                <van-image :src="item.img_url" @click="gotoDetail(item._id)" />
+                <van-image lazy-load :src="item.img_url" @click="gotoDetail(item._id)" />
                 <img src="/pic/pic_FOUR.png" alt class="pic_FOUR" />
 
                 <p class="price">
@@ -40,7 +40,7 @@
             <template v-if="this.value2==='c'">
               <van-grid-item v-for="item in sales_qtyWatch" :key="item._id">
                 <!-- <img src="/pic/regpic.jpeg" alt class="regpic" /> -->
-                <van-image :src="item.img_url" @click="gotoDetail(item._id)" />
+                <van-image lazy-load :src="item.img_url" @click="gotoDetail(item._id)" />
                 <img src="/pic/pic_FOUR.png" alt class="pic_FOUR" />
 
                 <p class="price">
@@ -57,7 +57,7 @@
           <template v-else-if="this.value===1">
             <van-grid-item v-for="item in manWatch" :key="item._id">
               <img src="/pic/regpic.jpeg" alt class="regpic" />
-              <van-image :src="item.img_url" @click="gotoDetail(item._id)" />
+              <van-image lazy-load :src="item.img_url" @click="gotoDetail(item._id)" />
               <img src="/pic/pic_FOUR.png" alt class="pic_FOUR" />
 
               <p class="price">
