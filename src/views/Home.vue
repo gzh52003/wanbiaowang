@@ -222,7 +222,7 @@ export default {
         },
       });
       // console.log(data);
-      this.recommend = data;
+      this.recommend = data.data;
     },
     gotoDetail(id) {
       this.$router.push({
