@@ -74,7 +74,7 @@
                 alt
                 class="regpic"
               />
-              <van-image :src="item.img_url" @click="gotoDetail(item._id)" />
+              <van-image lazy-load :src="item.img_url" @click="gotoDetail(item._id)" />
               <img src="/pic/pic_FOUR.png" alt class="pic_FOUR" />
 
               <p class="price">
@@ -146,9 +146,7 @@ export default {
       ],
     };
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     onConfirm() {
       this.$refs.item.toggle();
@@ -186,7 +184,7 @@ export default {
           size: 0,
         },
       });
-      this.priceWatch = priceWatch;
+      this.priceWatch = priceWatch.data;
     },
 
     async getSales_qty() {
@@ -196,7 +194,7 @@ export default {
           size: 0,
         },
       });
-      this.sales_qtyWatch = sales_qtyWatch;
+      this.sales_qtyWatch = sales_qtyWatch.data;
     },
   },
   created() {
@@ -205,7 +203,6 @@ export default {
     this.getWomanWatch();
     this.getPriceWatch();
     this.getSales_qty();
-    
   },
 };
 </script>
